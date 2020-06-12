@@ -1,8 +1,0 @@
-.navContainer {
-	margin: .5rem;
-	padding: .5rem;
-}
-.navContainer> nav {
-	display: flex;
-	justify-content: space-between;
-}
