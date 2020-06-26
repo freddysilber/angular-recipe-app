@@ -1,0 +1,4 @@
+/* Added this comment as a temp solution because the dropdown menu was overflowing of the right side of the page */
+.dropdown-menu {
+	left: -70%;
+}

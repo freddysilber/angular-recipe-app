@@ -17,14 +17,13 @@
 			</li>
 		</ul>
 
-		<ul class="nav navbar-nav navbar-right">
-			<li class="dropdown" appDropdown>
-				<a href="#" class="dropdown-toggle nav-link" role="button">Manage<span class="caret"></span></a>
-				<ul class="dropdown-menu">
-					<li><a class="nav-link" href="#">Save Data</a></li>
-					<li><a class="nav-link" href="#">Fetch Data</a></li>
-				</ul>
-			</li>
-		</ul>
+		<div class="btn-group" appDropdown #r="appDropdown" placement="auto">
+			<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Manage<span class="caret"></span></button>
+			<ul class="dropdown-menu" [ngClass]="{'show':r.isOpen}">
+				<li><a class="dropdown-item" style="cursor: pointer">To Shopping List</a></li>
+				<li><a class="dropdown-item" href="#">Edit Recipe</a></li>
+				<li><a class="dropdown-item" href="#">Delete Recipe</a></li>
+			</ul>
+		</div>
 	</div>
 </nav>
