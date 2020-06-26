@@ -9,19 +9,15 @@ import { Recipe } from '../recipe.model'
 export class RecipeListComponent implements OnInit {
   @Output() recipeWasSelected = new EventEmitter<Recipe>()
   recipes: Recipe[] = [
-    new Recipe('Pizza', 'pizza is dank', 'https://www.simplyrecipes.com/wp-content/uploads/2019/09/easy-pepperoni-pizza-lead-4-768x1075.jpg'),
-    new Recipe('Pasta', 'I like cheese', 'https://www.simplyrecipes.com/wp-content/uploads/2019/09/easy-pepperoni-pizza-lead-4-768x1075.jpg')
+    new Recipe('Pizza', 'Pepperoni Pizza', 'https://www.simplyrecipes.com/wp-content/uploads/2019/09/easy-pepperoni-pizza-lead-4-768x1075.jpg'),
+    new Recipe('Pasta', 'Mac and Cheese', 'https://pinchofyum.com/wp-content/uploads/Best-Instant-Pot-Mac-and-Cheese.jpg')
   ]
 
-  constructor() {
+  constructor() { }
 
-  }
-
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
   onRecipeSelected(recipe: Recipe) {
     this.recipeWasSelected.emit(recipe)
   }
-
 }
