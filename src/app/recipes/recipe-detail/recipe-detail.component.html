@@ -13,7 +13,7 @@
     <div class="btn-group" appDropdown #r="appDropdown">
       <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Manage Recipe<span class="caret"></span></button>
       <ul class="dropdown-menu" [ngClass]="{'show':r.isOpen}">
-        <li><a class="dropdown-item" style="cursor: pointer">To Shopping List</a></li>
+        <li><a class="dropdown-item" style="cursor: pointer" (click)="onAddToShoppingList()">To Shopping List</a></li>
         <li><a class="dropdown-item" href="#">Edit Recipe</a></li>
         <li><a class="dropdown-item" href="#">Delete Recipe</a></li>
       </ul>
