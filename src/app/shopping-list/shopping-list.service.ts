@@ -10,7 +10,7 @@ export class ShoppingListService {
 		return this.ingredients.slice()
 	}
 
-	// public addIngredient(){
-
-	// }
+	public addIngredient(ingredient: Ingredient) {
+		this.ingredients.push(ingredient)
+	}
 }
