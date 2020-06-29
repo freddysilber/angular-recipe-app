@@ -4,9 +4,9 @@
   </div>
 
   <div class="col-md-7">
-    <app-recipe-detail *ngIf="selectedRecipe; else infoText" [recipe]="selectedRecipe"></app-recipe-detail>
-    <ng-template #infoText>
-      <p class="defaultText">Please select a Recipe!</p>
-    </ng-template>
+    <br>
+    <br>
+    <br>
+    <router-outlet></router-outlet>
   </div>
 </div>
