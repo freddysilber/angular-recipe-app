@@ -1,0 +1,9 @@
+.ingredientsListContainer {
+	margin: .25rem 0;
+}
+.buttonGroup > button {
+	margin: 0 .2rem;
+}
+input.ng-invalid.ng-touched, textarea.ng-invalid.ng-touched {
+	border: 1px solid red;
+}
