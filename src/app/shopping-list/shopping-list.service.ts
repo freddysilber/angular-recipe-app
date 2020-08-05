@@ -23,6 +23,11 @@ export class ShoppingListService {
 		this.ingredientsChanges.next(this.ingredients.slice())
 	}
 
+	public deleteIngredient(index: number) {
+		this.ingredients.splice(index, 1)
+		this.ingredientsChanges.next(this.ingredients.slice())
+	}
+
 	public addIngredient(ingredient: Ingredient) {
 		this.ingredients.push(ingredient)
 		this.ingredientsChanges.next(this.ingredients.slice())
