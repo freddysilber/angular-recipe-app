@@ -1,6 +1,15 @@
 # Recipe App
 This app was built by yours truly, @freddysilber
 
+# Feature Ideas
+1. upload your own photo for the recipe
+2. rate the recipe
+2. share the recipe
+4. generate a recipe from a list of ingredients
+5. recipe cooking directions
+6. my favorites recipes
+7. people can comment on your recipes
+
 
 # AngularRecipeApp
 

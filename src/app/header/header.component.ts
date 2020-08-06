@@ -15,6 +15,6 @@ export class HeaderComponent {
 	}
 
 	onFetchData() {
-		this.dataStorage.fetchRecipes()
+		this.dataStorage.fetchRecipes().subscribe()
 	}
 }
