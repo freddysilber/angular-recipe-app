@@ -37,7 +37,7 @@ export class RecipeService {
 	]
 
 	private refreshRecipes() {
-		this.recipesChanged.next(this.recipes.slice())
+		this.recipesChanged.next(this.getRecipes())
 	}
 
 	public getRecipes() {
@@ -54,13 +54,16 @@ export class RecipeService {
 
 	public addRecipe(recipe: Recipe) {
 		this.recipes.push(recipe)
-		// this.recipesChanged.next(this.recipes.slice())
 		this.refreshRecipes()
 	}
 
 	public updateRecipe(index: number, newRecipe: Recipe) {
 		this.recipes[index] = newRecipe
-		// this.recipesChanged.next(this.recipes.slice())
+		this.refreshRecipes()
+	}
+
+	public deleteRecipe(index: number) {
+		this.recipes.splice(index, 1)
 		this.refreshRecipes()
 	}
 }
