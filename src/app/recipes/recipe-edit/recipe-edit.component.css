@@ -8,5 +8,8 @@ input.ng-invalid.ng-touched, textarea.ng-invalid.ng-touched {
 	border: 1px solid red;
 }
 img {
-	max-height: 40%;
+	max-height: 300px;
+}
+.imageContainer {
+	height: fit-content;
 }

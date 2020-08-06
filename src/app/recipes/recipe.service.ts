@@ -33,6 +33,16 @@ export class RecipeService {
 				new Ingredient('Milk', 1),
 				new Ingredient('Flour', 1)
 			]
+		),
+		new Recipe(
+			'Burrito',
+			'Bean and Cheese',
+			'https://www.theseasonedmom.com/wp-content/uploads/2018/02/The-Easiest-Burrito-Recipe-7.jpg',
+			[
+				new Ingredient('Can of Beans (Pinto)', 1),
+				new Ingredient('Tortilla', 1),
+				new Ingredient('Cheddar Cheese (oz)', 10)
+			]
 		)
 	]
 
