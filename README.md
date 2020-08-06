@@ -1,3 +1,7 @@
+# Recipe App
+This app was built by yours truly, @freddysilber
+
+
 # AngularRecipeApp
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.8.
