@@ -50,6 +50,11 @@ export class RecipeService {
 		this.recipesChanged.next(this.getRecipes())
 	}
 
+	public setRecipes(recipes: Recipe[]) {
+		this.recipes = recipes
+		this.refreshRecipes()
+	}
+
 	public getRecipes() {
 		return this.recipes.slice()
 	}
