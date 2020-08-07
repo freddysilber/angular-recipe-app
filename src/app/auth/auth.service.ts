@@ -3,6 +3,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http'
 import { catchError, tap } from 'rxjs/operators'
 import { throwError, BehaviorSubject } from 'rxjs'
 import { User } from './user.model'
+import { Router } from '@angular/router'
 
 export interface AuthResponseData {
 	kind: string
@@ -23,7 +24,10 @@ export class AuthService {
 	private userSignUpRoute: string = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${this.apiKey}`
 	private userLoginRoute: string = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${this.apiKey}`
 
-	constructor(private http: HttpClient) { }
+	constructor(
+		private http: HttpClient,
+		private router: Router
+	) { }
 
 	signup(email: string, password: string) {
 		return this.http
@@ -45,6 +49,11 @@ export class AuthService {
 					this.handleAuthentication(email, localId, idToken, +expiresIn)
 				})
 			)
+	}
+
+	logout() {
+		this.user.next(null)
+		this.router.navigate(['/auth'])
 	}
 
 	private buildAuthBody(email: string, password: string) {
