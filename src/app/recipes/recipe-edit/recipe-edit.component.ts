@@ -81,7 +81,7 @@ export class RecipeEditComponent implements OnInit {
             'name': new FormControl(ingredient.name, Validators.required),
             'amount': new FormControl(ingredient.amount, [
               Validators.required,
-              Validators.pattern(/^[1-9]+[0-9]*$/)
+              Validators.pattern(/^[1-9]+[0-9]*$/) // Validates that the number is not a negative or 0
             ])
           }))
         }

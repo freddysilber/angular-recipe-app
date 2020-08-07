@@ -2,3 +2,6 @@
 .dropdown-menu {
 	left: -70%;
 }
+a {
+	cursor: pointer;
+}
