@@ -27,33 +27,32 @@ export class AuthService {
 
 	signup(email: string, password: string) {
 		return this.http
-			.post<AuthResponseData>(
-				this.userSignUpRoute,
-				{
-					email: email,
-					password: password,
-					returnSecureToken: true
-				}
-			)
+			.post<AuthResponseData>(this.userSignUpRoute, this.buildAuthBody(email, password))
 			.pipe(catchError(this.handleError),
 				tap(response => {
-					this.handleAuthentication(response.email, response.localId, response.idToken, +response.expiresIn)
-				}))
+					const { email, localId, idToken, expiresIn } = response
+					this.handleAuthentication(email, localId, idToken, +expiresIn)
+				})
+			)
 	}
 
 	login(email: string, password: string) {
 		return this.http
-			.post<AuthResponseData>(
-				this.userLoginRoute,
-				{
-					email: email,
-					password: password,
-					returnSecureToken: true
-				}
+			.post<AuthResponseData>(this.userLoginRoute, this.buildAuthBody(email, password))
+			.pipe(catchError(this.handleError),
+				tap(response => {
+					const { email, localId, idToken, expiresIn } = response
+					this.handleAuthentication(email, localId, idToken, +expiresIn)
+				})
 			)
-			.pipe(catchError(this.handleError), tap(response => {
-				this.handleAuthentication(response.email, response.localId, response.idToken, +response.expiresIn)
-			}))
+	}
+
+	private buildAuthBody(email: string, password: string) {
+		return {
+			email: email,
+			password: password,
+			returnSecureToken: true
+		}
 	}
 
 	private handleAuthentication(email: string, userId: string, token: string, expiresIn: number) {
