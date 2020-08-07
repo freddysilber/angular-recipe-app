@@ -20,6 +20,7 @@ export interface AuthResponseData {
 })
 export class AuthService {
 	user = new BehaviorSubject<User>(null)
+	private tokenExpirationTimer: any
 	private apiKey: string = 'AIzaSyDpS6Kmy5m1U1gL_24s2zEFpJF8gXgWAdw'
 	private userSignUpRoute: string = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${this.apiKey}`
 	private userLoginRoute: string = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${this.apiKey}`
@@ -51,9 +52,42 @@ export class AuthService {
 			)
 	}
 
+	autoLogin() {
+		const user: {
+			email: string,
+			id: string,
+			_token: string,
+			_tokenExpirationDate: string
+		} = JSON.parse(localStorage.getItem('userData'))
+
+		if (!user) {
+			return
+		}
+
+		const { email, id, _token, _tokenExpirationDate } = user
+		const loadedUser = new User(email, id, _token, new Date(_tokenExpirationDate))
+
+		if (loadedUser.token) {
+			this.user.next(loadedUser)
+			const expirationDuration = new Date(user._tokenExpirationDate).getTime() - new Date().getTime()
+			this.autoLogout(expirationDuration)
+		}
+	}
+
 	logout() {
 		this.user.next(null)
 		this.router.navigate(['/auth'])
+		localStorage.removeItem('userData')
+		if (this.tokenExpirationTimer) {
+			clearTimeout(this.tokenExpirationTimer)
+		}
+		this.tokenExpirationTimer = null
+	}
+
+	autoLogout(expirationDuration: number) {
+		this.tokenExpirationTimer = setTimeout(() => {
+			this.logout()
+		}, expirationDuration)
 	}
 
 	private buildAuthBody(email: string, password: string) {
@@ -73,6 +107,8 @@ export class AuthService {
 			expirationDate
 		)
 		this.user.next(user)
+		this.autoLogout(expiresIn * 1000)
+		localStorage.setItem('userData', JSON.stringify(user))
 	}
 
 	private handleError(error: HttpErrorResponse) {
