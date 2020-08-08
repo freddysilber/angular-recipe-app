@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core'
-import { AuthService } from './auth/auth.service';
-import { DataStorageService } from './shared/data-storage.service';
+import { AuthService } from './auth/auth.service'
+// import { DataStorageService } from './shared/data-storage.service'
 
 @Component({
   selector: 'app-root',
@@ -11,11 +11,11 @@ export class AppComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private dataStorageService: DataStorageService // not in the course!!
+    // private dataStorageService: DataStorageService // not in the course!!
   ) { }
 
   ngOnInit() {
     this.authService.autoLogin()
-    this.dataStorageService.fetchRecipes().subscribe() // not in the couse!!
+    // this.dataStorageService.fetchRecipes().subscribe() // not in the couse!!
   }
 }
