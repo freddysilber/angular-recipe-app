@@ -3,14 +3,18 @@
 	font-family: 'Drama Sans';
 	src: url('https://rawgit.com/drama-sans/drama-sans/master/dist/DramaSans.eot'); /* IE9 Compat Modes */
 	src: url('https://rawgit.com/drama-sans/drama-sans/master/dist/DramaSans.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
-		url('https://rawgit.com/drama-sans/drama-sans/master/dist/DramaSans.woff2') format('woff2'), /* Super Modern Browsers */
-		url('https://rawgit.com/drama-sans/drama-sans/master/dist/DramaSans.woff') format('woff'), /* Pretty Modern Browsers */
-		url('https://rawgit.com/drama-sans/drama-sans/master/dist/DramaSans.ttf')  format('truetype'); /* Safari, Android, iOS */
-  }
-  * {
-	  font-family: Drama Sans;
-	  /* font-family: "Comic Sans MS", "Comic Sans", cursive; */
-  }
-  img {
-	margin: 10%;
+	url('https://rawgit.com/drama-sans/drama-sans/master/dist/DramaSans.woff2') format('woff2'), /* Super Modern Browsers */
+	url('https://rawgit.com/drama-sans/drama-sans/master/dist/DramaSans.woff') format('woff'), /* Pretty Modern Browsers */
+	url('https://rawgit.com/drama-sans/drama-sans/master/dist/DramaSans.ttf')  format('truetype'); /* Safari, Android, iOS */
 }
+* {
+	font-family: Drama Sans;
+}
+
+img {
+	margin: 10%;
+	border-radius: 10px;
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

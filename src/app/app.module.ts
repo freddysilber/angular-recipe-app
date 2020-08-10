@@ -16,7 +16,8 @@ import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinne
 import { AuthInterceptorService } from './auth/auth-interceptor.service'
 import { AlertComponent } from './shared/alert/alert.component'
 import { PlaceholderDirective } from './shared/placeholder.directive'
-import { RecipesModule } from './recipes/recipes.module'
+import { RecipesModule } from './recipes/recipes.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { RecipesModule } from './recipes/recipes.module'
     ReactiveFormsModule,
     AppRoutingModule,
     HttpClientModule,
-    RecipesModule
+    RecipesModule,
+    BrowserAnimationsModule
   ],
   providers: [
     ShoppingListService,

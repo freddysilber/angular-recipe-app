@@ -22,13 +22,15 @@
   </div>
 </div>
 <div class="row">
-  <div class="col-xs-12">{{recipe.description}}</div>
+  <div class="col-xs-12">Description: {{recipe.description}}</div>
 </div>
 <div class="row btn-group">
-  <button class="btn btn-secondary" (click)="onAddToShoppingList()">To Shopping List</button>
-  <button class="btn btn-secondary" (click)="onEditRecipe()">Edit Recipe</button>
-  <button class="btn btn-secondary" (click)="onDeleteRecipe()">Delete Recipe</button>
+  <button class="btn btn-dark" (click)="onAddToShoppingList()">To Shopping List</button>
+  <button class="btn btn-dark" (click)="onEditRecipe()">Edit Recipe</button>
+  <button class="btn btn-danger" (click)="onDeleteRecipe()">Delete Recipe</button>
 </div>
+<hr>
+<p>Ingredients List</p>
 <div class="row">
   <div class="col-xs-12">
     <ul class="list-group">
