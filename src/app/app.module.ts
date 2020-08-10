@@ -17,8 +17,7 @@ import { AuthInterceptorService } from './auth/auth-interceptor.service'
 import { AlertComponent } from './shared/alert/alert.component'
 import { PlaceholderDirective } from './shared/placeholder.directive'
 import { RecipesModule } from './recipes/recipes.module';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
-
+  
 @NgModule({
   declarations: [
     AlertComponent,
@@ -35,10 +34,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
-    AppRoutingModule,
     HttpClientModule,
-    RecipesModule,
-    BrowserAnimationsModule
+    AppRoutingModule,
+    RecipesModule
   ],
   providers: [
     ShoppingListService,
@@ -56,4 +54,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
     AlertComponent
   ]
 })
-export class AppModule { }
+export class AppModule { 
+
+}
