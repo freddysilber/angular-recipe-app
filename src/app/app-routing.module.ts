@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core'
 import { Routes, RouterModule } from '@angular/router'
 
-import { AuthComponent } from './auth/auth.component'
-
 const appRoutes: Routes = [
 	{
 		path: '',
@@ -10,8 +8,11 @@ const appRoutes: Routes = [
 		pathMatch: 'full'
 	},
 	{
-		path: 'auth',
-		component: AuthComponent
+		path: 'recipes',
+		// Lazy loading w/ dynamic loading (routing)
+		loadChildren: () => import('./recipes/recipes.module').then(m => m.RecipesModule)
+		//! this is the old way of lazy loading
+		// loadChildren: './recipes/recipes.module#RecipesModule'
 	}
 ]
 
@@ -19,6 +20,6 @@ const appRoutes: Routes = [
 	imports: [RouterModule.forRoot(appRoutes)],
 	exports: [RouterModule]
 })
-export class AppRoutingModule { 
+export class AppRoutingModule {
 
 }
