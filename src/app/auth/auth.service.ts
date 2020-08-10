@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core'
-import { HttpClient, HttpErrorResponse } from '@angular/common/http'
-import { catchError, tap } from 'rxjs/operators'
-import { throwError, BehaviorSubject } from 'rxjs'
-import { User } from './user.model'
 import { Router } from '@angular/router'
+import { HttpClient, HttpErrorResponse } from '@angular/common/http'
+import { throwError, BehaviorSubject } from 'rxjs'
+import { catchError, tap } from 'rxjs/operators'
+
+import { User } from './user.model'
+import { environment } from '../../environments/environment'
 
 export interface AuthResponseData {
 	kind: string
@@ -15,15 +17,15 @@ export interface AuthResponseData {
 	registered?: boolean
 }
 
+const userSignUpRoute: string = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${environment.firebaseAPIKey}`
+const userLoginRoute: string = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${environment.firebaseAPIKey}`
+
 @Injectable({
 	providedIn: 'root'
 })
 export class AuthService {
 	user = new BehaviorSubject<User>(null)
 	private tokenExpirationTimer: any
-	private apiKey: string = 'AIzaSyDpS6Kmy5m1U1gL_24s2zEFpJF8gXgWAdw'
-	private userSignUpRoute: string = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${this.apiKey}`
-	private userLoginRoute: string = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${this.apiKey}`
 
 	constructor(
 		private http: HttpClient,
@@ -32,7 +34,7 @@ export class AuthService {
 
 	signup(email: string, password: string) {
 		return this.http
-			.post<AuthResponseData>(this.userSignUpRoute, this.buildAuthBody(email, password))
+			.post<AuthResponseData>(userSignUpRoute, this.buildAuthBody(email, password))
 			.pipe(catchError(this.handleError),
 				tap(response => {
 					const { email, localId, idToken, expiresIn } = response
@@ -43,7 +45,7 @@ export class AuthService {
 
 	login(email: string, password: string) {
 		return this.http
-			.post<AuthResponseData>(this.userLoginRoute, this.buildAuthBody(email, password))
+			.post<AuthResponseData>(userLoginRoute, this.buildAuthBody(email, password))
 			.pipe(catchError(this.handleError),
 				tap(response => {
 					const { email, localId, idToken, expiresIn } = response
