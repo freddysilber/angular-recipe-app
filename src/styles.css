@@ -7,14 +7,12 @@
 	url('https://rawgit.com/drama-sans/drama-sans/master/dist/DramaSans.woff') format('woff'), /* Pretty Modern Browsers */
 	url('https://rawgit.com/drama-sans/drama-sans/master/dist/DramaSans.ttf')  format('truetype'); /* Safari, Android, iOS */
 }
+
 * {
 	font-family: Drama Sans;
 }
 
 img {
-	margin: 10%;
 	border-radius: 10px;
+	max-height: 300px;
 }
-
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

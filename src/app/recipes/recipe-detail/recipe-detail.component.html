@@ -11,25 +11,19 @@
 <div class="row">
   <div class="col-xs-12">
     <!-- OLD DROPDOWN W/ DIRECTIVE -->
-    <!-- <div class="btn-group" appDropdown #r="appDropdown">
+    <div class="btn-group" appDropdown #r="appDropdown">
       <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Manage Recipe<span class="caret"></span></button>
       <ul class="dropdown-menu" [ngClass]="{'show':r.isOpen}">
         <li><a class="dropdown-item" style="cursor: pointer" (click)="onAddToShoppingList()">To Shopping List</a></li>
         <li><a class="dropdown-item" style="cursor: pointer" (click)="onEditRecipe()">Edit Recipe</a></li>
         <li><a class="dropdown-item" style="cursor: pointer" (click)="onDeleteRecipe()">Delete Recipe</a></li>
       </ul>
-    </div> -->
+    </div>
   </div>
 </div>
 <div class="row">
   <div class="col-xs-12">Description: {{recipe.description}}</div>
 </div>
-<div class="row btn-group">
-  <button class="btn btn-dark" (click)="onAddToShoppingList()">To Shopping List</button>
-  <button class="btn btn-dark" (click)="onEditRecipe()">Edit Recipe</button>
-  <button class="btn btn-danger" (click)="onDeleteRecipe()">Delete Recipe</button>
-</div>
-<hr>
 <p>Ingredients List</p>
 <div class="row">
   <div class="col-xs-12">
