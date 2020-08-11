@@ -60,6 +60,10 @@ export class AuthComponent implements OnInit, OnDestroy {
 		}
 		form.reset()
 	}
+	// This really isnt used anywhere so I dont know if we need it anymore
+	onHandleError() {
+		this.store.dispatch(new AuthActions.ClearError())
+	}
 
 	ngOnDestroy() {
 		if (this.closeSub) {
@@ -79,6 +83,7 @@ export class AuthComponent implements OnInit, OnDestroy {
 		this.closeSub = componentRef.instance.close.subscribe(() => {
 			this.closeSub.unsubscribe()
 			hostViewContainerRef.clear()
+			this.onHandleError() // This is optional
 		})
 	}
 }

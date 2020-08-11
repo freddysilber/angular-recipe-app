@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core'
-import { Router } from '@angular/router'
-import { HttpClient, HttpErrorResponse } from '@angular/common/http'
+import { HttpErrorResponse } from '@angular/common/http'
 import { throwError } from 'rxjs'
-import { catchError, tap } from 'rxjs/operators'
 import { Store } from '@ngrx/store'
 
 import { User } from './user.model'
@@ -20,9 +18,6 @@ export interface AuthResponseData {
 	registered?: boolean
 }
 
-const userSignUpRoute: string = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${environment.firebaseAPIKey}`
-const userLoginRoute: string = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${environment.firebaseAPIKey}`
-
 @Injectable({
 	providedIn: 'root'
 })
@@ -30,32 +25,9 @@ export class AuthService {
 	private tokenExpirationTimer: any
 
 	constructor(
-		private http: HttpClient,
-		private router: Router,
+		// private http: HttpClient,
 		private store: Store<fromApp.AppState>
 	) { }
-
-	signup(email: string, password: string) {
-		return this.http
-			.post<AuthResponseData>(userSignUpRoute, this.buildAuthBody(email, password))
-			.pipe(catchError(this.handleError),
-				tap(response => {
-					const { email, localId, idToken, expiresIn } = response
-					this.handleAuthentication(email, localId, idToken, +expiresIn)
-				})
-			)
-	}
-
-	login(email: string, password: string) {
-		return this.http
-			.post<AuthResponseData>(userLoginRoute, this.buildAuthBody(email, password))
-			.pipe(catchError(this.handleError),
-				tap(response => {
-					const { email, localId, idToken, expiresIn } = response
-					this.handleAuthentication(email, localId, idToken, +expiresIn)
-				})
-			)
-	}
 
 	autoLogin() {
 		const user: {
@@ -85,7 +57,6 @@ export class AuthService {
 
 	logout() {
 		this.store.dispatch(new AuthActions.Logout())
-		this.router.navigate(['/auth'])
 		localStorage.removeItem('userData')
 		if (this.tokenExpirationTimer) {
 			clearTimeout(this.tokenExpirationTimer)
