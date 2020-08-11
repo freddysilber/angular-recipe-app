@@ -71,7 +71,7 @@ export class AuthService {
 		const loadedUser = new User(email, id, _token, new Date(_tokenExpirationDate))
 		if (loadedUser.token) {
 			this.store.dispatch(
-				new AuthActions.Login({
+				new AuthActions.AuthenticateSuccess({
 					email: loadedUser.email,
 					userId: loadedUser.id,
 					token: loadedUser.token,
@@ -115,7 +115,7 @@ export class AuthService {
 			token,
 			expirationDate
 		)
-		this.store.dispatch(new AuthActions.Login({
+		this.store.dispatch(new AuthActions.AuthenticateSuccess({
 			email,
 			userId,
 			token,
