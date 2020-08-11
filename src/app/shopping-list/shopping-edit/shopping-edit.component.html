@@ -11,6 +11,7 @@
                  id="name"
                  class="form-control"
                  name="name"
+                 placeholder="Ingredient"
                  ngModel
                  required>
         </div>
@@ -21,16 +22,17 @@
                  id="amount"
                  class="form-control"
                  name="amount"
+                 placeholder="Amount"
                  ngModel
                  required
                  pattern="^[1-9]+[0-9]*$"
-                 style="width: 4rem;">
+                 style="width: 10rem;">
         </div>
       </div>
-      <div class="col-xs-12">
+      <div class="col-xs-12 btn-group">
         <button class="btn btn-success" type="submit" [disabled]="!f.valid">{{editMode ? 'Update' : 'Add'}}</button>
         <button *ngIf="editMode" class="btn btn-danger" type="button" (click)="onDelete()">Delete</button>
-        <button class="btn btn-primary" type="button" (click)="onClear()">Clear</button>
+        <button class="btn btn-dark" type="button" (click)="onClear()" [disabled]="!editMode">Clear</button>
       </div>
     </form>
   </div>
