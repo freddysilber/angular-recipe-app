@@ -24,21 +24,14 @@ export class RecipeDetailComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.route.params.pipe(map(params => {
-      return +params['id']
-    }), switchMap(id => {
-      return this.store.select('recipes')
-    })).subscribe((params: Params) => {
-      this.id = +params['id']
-        .pipe(
-          map(recipesState => {
-            return recipesState.recipes.find((recipe, index) => {
-              return index === this.id
-            })
-          })
-        ).subscribe(recipe => this.recipe = recipe)
-      // this.recipe = this.recipeService.getRecipe(this.id)
-    })
+    this.route.params.pipe(
+      map(params => +params['id']),
+      switchMap(id => {
+        this.id = id
+        return this.store.select('recipes')
+      }),
+      map(recipesState => recipesState.recipes.find((recipe, index) => index === this.id)))
+      .subscribe(recipe => this.recipe = recipe)
   }
 
   onAddToShoppingList() {
