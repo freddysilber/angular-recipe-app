@@ -1,16 +1,16 @@
 # Recipe App
 This app was built by yours truly, @freddysilber
 
-# Bookmark in course: 376
+#### Bookmark in course: 376
 
-# Feature Ideas
-1. upload your own photo for the recipe
-2. rate the recipe
-2. share the recipe
-4. generate a recipe from a list of ingredients
-5. recipe cooking directions
-6. my favorites recipes
-7. people can comment on your recipes
+# Features to be built...
+1. User can upload their own photo for the recipe (from their computer as a jpeg or png file)
+2. User can rate the recipe (out of 5 stars)
+2. User can share the recipe with other users
+4. User can find a random recipe from a list of ingredients
+5. App can provide recipe cooking instructions
+6. User can 'favorite' a recipe
+7. Other users can provide feedback on your recipes (comments, likes, etc)
 
 
 # AngularRecipeApp
