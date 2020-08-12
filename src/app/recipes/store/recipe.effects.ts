@@ -4,8 +4,8 @@ import { Actions, Effect, ofType } from '@ngrx/effects'
 import { Store } from '@ngrx/store'
 import { switchMap, map, withLatestFrom } from 'rxjs/operators'
 
-import * as RecipesActions from './recipe.actions'
 import { Recipe } from '../recipe.model'
+import * as RecipesActions from './recipe.actions'
 import * as fromApp from '../../store/app.reducer'
 
 const databaseApiUrl = 'https://angular-recipe-app-2cafb.firebaseio.com/recipes.json'

@@ -38,7 +38,6 @@ const handleAuthentication = (expiresIn: number, email: string, userId: string, 
 }
 
 const handleError = (error: any) => {
-	// console.log(error)
 	let errorMessage = 'An unknown error occured'
 	if (!error.error || !error.error.error) {
 		return of(new AuthActions.AuthenticateFail(errorMessage))

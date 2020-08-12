@@ -1,6 +1,5 @@
 import { Recipe } from '../recipe.model'
 import * as RecipesActions from './recipe.actions'
-import { act } from '@ngrx/effects'
 
 const initialState: State = {
 	recipes: []
