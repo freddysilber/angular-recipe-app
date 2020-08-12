@@ -3,10 +3,13 @@ import { Router } from '@angular/router'
 import { HttpClient } from '@angular/common/http'
 import { Actions, ofType, Effect } from '@ngrx/effects'
 import { switchMap, catchError, map, tap } from 'rxjs/operators'
-import { environment } from 'src/environments/environment'
 import { of } from 'rxjs'
 
+import { environment } from 'src/environments/environment'
+
 import * as AuthActions from './auth.actions'
+import { User } from '../user.model'
+import { AuthService } from '../auth.service'
 
 const userLoginRoute: string = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${environment.firebaseAPIKey}`
 const userSignUpRoute: string = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${environment.firebaseAPIKey}`
@@ -23,6 +26,8 @@ export interface AuthResponseData {
 
 const handleAuthentication = (expiresIn: number, email: string, userId: string, token: string) => {
 	const expirationDate = new Date(new Date().getTime() + +expiresIn * 1000)
+	const user = new User(email, userId, token, expirationDate)
+	localStorage.setItem('userData', JSON.stringify(user))
 	return new AuthActions.AuthenticateSuccess({
 		email,
 		userId,
@@ -32,6 +37,7 @@ const handleAuthentication = (expiresIn: number, email: string, userId: string, 
 }
 
 const handleError = (error: any) => {
+	console.log(error)
 	let errorMessage = 'An unknown error occured'
 	if (!error.error || !error.error.error) {
 		return of(new AuthActions.AuthenticateFail(errorMessage))
@@ -63,6 +69,9 @@ export class AuthEffects {
 					returnSecureToken: true
 				}
 			).pipe(
+				tap(resData => {
+					this.authService.setLogoutTimer(+resData.expiresIn * 1000)
+				}),
 				map(resData => {
 					const { expiresIn, email, localId, idToken } = resData
 					return handleAuthentication(+expiresIn, email, localId, idToken)
@@ -85,6 +94,9 @@ export class AuthEffects {
 					returnSecureToken: true
 				}
 			).pipe(
+				tap(resData => {
+					this.authService.setLogoutTimer(+resData.expiresIn * 1000)
+				}),
 				map(resData => {
 					const { expiresIn, email, localId, idToken } = resData
 					return handleAuthentication(+expiresIn, email, localId, idToken)
@@ -98,13 +110,53 @@ export class AuthEffects {
 
 	@Effect({ dispatch: false })
 	authRedirect = this.actions$.pipe(
-		ofType(AuthActions.AUTHENTICATE_SUCCESS, AuthActions.LOGOUT),
+		ofType(AuthActions.AUTHENTICATE_SUCCESS),
 		tap(() => this.router.navigate(['/']))
+	)
+
+	@Effect({ dispatch: false })
+	authLogout = this.actions$.pipe(
+		ofType(AuthActions.LOGOUT),
+		tap(() => {
+			this.authService.clearLogoutTimer()
+			localStorage.removeItem('userData')
+			this.router.navigate(['/auth'])
+		})
+	)
+
+	@Effect()
+	autoLogin = this.actions$.pipe(
+		ofType(AuthActions.AUTO_LOGIN),
+		map(() => {
+			const user: {
+				email: string,
+				id: string,
+				_token: string,
+				_tokenExpirationDate: string
+			} = JSON.parse(localStorage.getItem('userData'))
+			if (!user) {
+				return { type: 'DUMMY' }
+			}
+			const { email, id, _token, _tokenExpirationDate } = user
+			const loadedUser = new User(email, id, _token, new Date(_tokenExpirationDate))
+			if (loadedUser.token) {
+				const expirationDuration = new Date(user._tokenExpirationDate).getTime() - new Date().getTime()
+				this.authService.setLogoutTimer(expirationDuration)
+				return new AuthActions.AuthenticateSuccess({
+					email: loadedUser.email,
+					userId: loadedUser.id,
+					token: loadedUser.token,
+					expirationDate: new Date(user._tokenExpirationDate)
+				})
+			}
+			return { type: 'DUMMY' }
+		})
 	)
 
 	constructor(
 		private actions$: Actions,
 		private http: HttpClient,
-		private router: Router
+		private router: Router,
+		private authService: AuthService
 	) { }
 }

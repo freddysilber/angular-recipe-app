@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core'
-import { AuthService } from './auth/auth.service'
-// import { DataStorageService } from './shared/data-storage.service'
+import { Store } from '@ngrx/store'
+
+import * as fromApp from './store/app.reducer'
+import * as AuthActions from './auth/store/auth.actions'
 
 @Component({
   selector: 'app-root',
@@ -9,13 +11,9 @@ import { AuthService } from './auth/auth.service'
 })
 export class AppComponent implements OnInit {
 
-  constructor(
-    private authService: AuthService,
-    // private dataStorageService: DataStorageService // not in the course!!
-  ) { }
+  constructor(private store: Store<fromApp.AppState>) { }
 
   ngOnInit() {
-    this.authService.autoLogin()
-    // this.dataStorageService.fetchRecipes().subscribe() // not in the couse!!
+    this.store.dispatch(new AuthActions.AutoLogin())
   }
 }
