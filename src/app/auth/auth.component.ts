@@ -5,6 +5,13 @@ import {
 	OnDestroy,
 	OnInit
 } from '@angular/core'
+import {
+	trigger,
+	state,
+	style,
+	transition,
+	animate
+} from '@angular/animations'
 import { NgForm } from '@angular/forms'
 import { Subscription } from 'rxjs'
 import { Store } from '@ngrx/store'
@@ -17,11 +24,25 @@ import * as AuthActions from './store/auth.actions'
 @Component({
 	selector: 'app-auth',
 	templateUrl: './auth.component.html',
-	styleUrls: ['./auth.component.css']
+	styleUrls: ['./auth.component.css'],
+	animations: [
+		trigger('divState', [
+			state('normal', style({
+				'background-color': 'red',
+				transform: 'translateX(0)'
+			})),
+			state('highlighted', style({
+				backgroundColor: 'blue',
+				transform: 'translateX(100px)'
+			})),
+			transition('normal => highlighted', animate(300)),
+			transition('highlighted => normal', animate(800))
+		])
+	]
 })
 export class AuthComponent implements OnInit, OnDestroy {
 	@ViewChild(PlaceholderDirective) alertHost: PlaceholderDirective
-
+	state = 'normal' //!! animation practice
 	isLoginMode: boolean = true
 	isLoading: boolean = false
 	error: string = null
@@ -33,6 +54,10 @@ export class AuthComponent implements OnInit, OnDestroy {
 		private componentFactoryResolver: ComponentFactoryResolver,
 		private store: Store<fromApp.AppState>
 	) { }
+
+	onAnimate() {
+		this.state === 'normal' ? this.state = 'highlighted' : this.state = 'normal'
+	}
 
 	ngOnInit() {
 		this.storeSub = this.store.select('auth').subscribe(authState => {
