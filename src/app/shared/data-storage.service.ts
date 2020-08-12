@@ -23,22 +23,20 @@ export class DataStorageService {
 
 	storeRecipes() {
 		this.http.put(databaseApiUrl, this.recipeService.getRecipes()).subscribe()
-		// .subscribe(response => console.log(response))
 	}
 
 	fetchRecipes() {
-		return this.http.get<Recipe[]>(databaseApiUrl).pipe(map(recipes => {
-			return recipes.map(recipe => {
-				return {
-					...recipe,
-					ingredients: recipe.ingredients ? recipe.ingredients : []
-				}
-			})
-		}),
-			tap(recipes => {
-				// this.recipeService.setRecipes(recipes)
-				this.store.dispatch(new RecipesActions.SetRecipes(recipes))
-			})
-		)
+		return this.http.get<Recipe[]>(databaseApiUrl)
+			.pipe(
+				map(recipes => {
+					return recipes.map(recipe => {
+						return {
+							...recipe,
+							ingredients: recipe.ingredients ? recipe.ingredients : []
+						}
+					})
+				}),
+				tap(recipes => this.store.dispatch(new RecipesActions.SetRecipes(recipes)))
+			)
 	}
 }

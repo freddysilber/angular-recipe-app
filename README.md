@@ -1,7 +1,7 @@
 # Recipe App
 This app was built by yours truly, @freddysilber
 
-#### Bookmark in course: 380... but could go back...
+#### Bookmark in course:
 
 # Features to be built...
 1. User can upload their own photo for the recipe (from their computer as a jpeg or png file)

@@ -18,6 +18,7 @@ import { CoreModule } from './core.module'
 import * as fromApp from './store/app.reducer'
 // Effects
 import { AuthEffects } from './auth/store/auth.effects'
+import { RecipeEffects } from './recipes/store/recipe.effects'
 // Miscellaneous/ Environment
 import { environment } from 'src/environments/environment'
 
@@ -31,7 +32,7 @@ import { environment } from 'src/environments/environment'
     HttpClientModule,
     AppRoutingModule,
     StoreModule.forRoot(fromApp.appReducer),
-    EffectsModule.forRoot([AuthEffects]),
+    EffectsModule.forRoot([AuthEffects, RecipeEffects]),
     // This is for the Redux Dev Tools extension in the browser
     StoreDevtoolsModule.instrument({ logOnly: environment.production }),
     // This simply displays more granular details about our routes and NgRx actions...

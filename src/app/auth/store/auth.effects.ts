@@ -32,7 +32,8 @@ const handleAuthentication = (expiresIn: number, email: string, userId: string, 
 		email,
 		userId,
 		token,
-		expirationDate
+		expirationDate,
+		redirect: true
 	})
 }
 
@@ -69,16 +70,12 @@ export class AuthEffects {
 					returnSecureToken: true
 				}
 			).pipe(
-				tap(resData => {
-					this.authService.setLogoutTimer(+resData.expiresIn * 1000)
-				}),
+				tap(resData => this.authService.setLogoutTimer(+resData.expiresIn * 1000)),
 				map(resData => {
 					const { expiresIn, email, localId, idToken } = resData
 					return handleAuthentication(+expiresIn, email, localId, idToken)
 				}),
-				catchError(error => {
-					return handleError(error)
-				})
+				catchError(error => handleError(error))
 			)
 		})
 	)
@@ -94,16 +91,12 @@ export class AuthEffects {
 					returnSecureToken: true
 				}
 			).pipe(
-				tap(resData => {
-					this.authService.setLogoutTimer(+resData.expiresIn * 1000)
-				}),
+				tap(resData => this.authService.setLogoutTimer(+resData.expiresIn * 1000)),
 				map(resData => {
 					const { expiresIn, email, localId, idToken } = resData
 					return handleAuthentication(+expiresIn, email, localId, idToken)
 				}),
-				catchError(error => {
-					return handleError(error)
-				})
+				catchError(error => handleError(error))
 			)
 		})
 	)
@@ -111,7 +104,11 @@ export class AuthEffects {
 	@Effect({ dispatch: false })
 	authRedirect = this.actions$.pipe(
 		ofType(AuthActions.AUTHENTICATE_SUCCESS),
-		tap(() => this.router.navigate(['/']))
+		tap((authSuccessAction: AuthActions.AuthenticateSuccess) => {
+			if (authSuccessAction.payload.redirect) {
+				this.router.navigate(['/'])
+			}
+		})
 	)
 
 	@Effect({ dispatch: false })
@@ -146,7 +143,8 @@ export class AuthEffects {
 					email: loadedUser.email,
 					userId: loadedUser.id,
 					token: loadedUser.token,
-					expirationDate: new Date(user._tokenExpirationDate)
+					expirationDate: new Date(user._tokenExpirationDate),
+					redirect: false
 				})
 			}
 			return { type: 'DUMMY' }
