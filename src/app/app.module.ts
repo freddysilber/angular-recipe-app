@@ -20,7 +20,8 @@ import * as fromApp from './store/app.reducer'
 import { AuthEffects } from './auth/store/auth.effects'
 import { RecipeEffects } from './recipes/store/recipe.effects'
 // Miscellaneous/ Environment
-import { environment } from 'src/environments/environment'
+// import { environment } from 'src/environments/environment'
+import { environment } from '../environments/environment'
 
 @NgModule({
   declarations: [
