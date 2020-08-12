@@ -18,9 +18,8 @@ export class DataStorageService {
 	) { }
 
 	storeRecipes() {
-		this.http
-			.put(databaseApiUrl, this.recipeService.getRecipes())
-			.subscribe(response => console.log(response))
+		this.http.put(databaseApiUrl, this.recipeService.getRecipes()).subscribe()
+		// .subscribe(response => console.log(response))
 	}
 
 	fetchRecipes() {
