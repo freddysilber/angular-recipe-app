@@ -7,8 +7,8 @@
 			<app-loading-spinner></app-loading-spinner>
 		</div>
 		<!-- Animation Test -->
-		<div [@divState]="state" style="width: 100px; height:100px">b</div>
-		<button class="btn btn-dark" (click)="onAnimate()">Animate!</button>
+		<!-- <div [@divState]="state" style="width: 100px; height:100px"></div>
+		<button class="btn btn-dark" (click)="onAnimate()">Animate!</button> -->
 		<!-- Form -->
 		<form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)" *ngIf="!isLoading">
 			<div class="form-group">
