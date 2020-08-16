@@ -152,5 +152,8 @@
       }
     }
   },
-  "defaultProject": "angular-recipe-app"
+  "defaultProject": "angular-recipe-app",
+  "cli": {
+    "analytics": false
+  }
 }
