@@ -17,7 +17,10 @@ import * as AuthActions from './auth/store/auth.actions'
 })
 export class AppComponent implements OnInit {
 
-  constructor(private store: Store<fromApp.AppState>, @Inject(PLATFORM_ID) private platformId) { }
+  constructor(
+    private store: Store<fromApp.AppState>,
+    @Inject(PLATFORM_ID) private platformId
+  ) { }
 
   ngOnInit() {
     if (isPlatformBrowser(this.platformId)) { // Checks if where using the browser for rendering
