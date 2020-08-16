@@ -40,7 +40,7 @@ import * as AuthActions from './store/auth.actions'
 	// ]
 })
 export class AuthComponent implements OnInit, OnDestroy {
-	@ViewChild(PlaceholderDirective) alertHost: PlaceholderDirective
+	@ViewChild(PlaceholderDirective, { static: true }) alertHost: PlaceholderDirective
 	state = 'normal' //!! animation practice
 	isLoginMode: boolean = true
 	isLoading: boolean = false
